@@ -1,0 +1,434 @@
+[
+  {
+    "name": "Albino Burmese Python",
+    "scientific_name": "Python bivittatus",
+    "description": "A captive-bred color morph of the Burmese python with white or yellowish coloration and red or pink eyes due to lack of pigmentation.",
+    "venomous": false,
+    "conservation_status": "Vulnerable",
+    "marine": false,
+    "image_path": "assets/images/albino_burmese_python.jpg",
+    "classification": {
+      "size": "Large",
+      "color_pattern": "White or yellowish with patterns in yellow or golden hues",
+      "distinct_feature": "Lack of pigmentation, red or pink eyes"
+    },
+    "habitat": "Tropical and subtropical forests, often near water",
+    "geographic_range": "Native to Southeast Asia, found in the Philippines as pets or in captivity",
+    "behavior": "Primarily nocturnal, excellent swimmers and climbers",
+    "diet": "Mammals and birds, kills prey by constriction"
+  },
+  {
+    "name": "Asian Sunbeam Snake",
+    "scientific_name": "Xenopeltis unicolor",
+    "description": "A glossy, iridescent snake with smooth scales that give it a distinctive rainbow sheen when light hits its body.",
+    "venomous": false,
+    "conservation_status": "Least Concern",
+    "marine": false,
+    "image_path": "assets/images/asian_sunbeam_snake.jpg",
+    "classification": {
+      "size": "Medium",
+      "color_pattern": "Glossy black or dark brown with iridescent rainbow sheen",
+      "distinct_feature": "Highly iridescent scales, smooth appearance"
+    },
+    "habitat": "Moist forests, agricultural areas, and near water bodies",
+    "geographic_range": "Southeast Asia including the Philippines",
+    "behavior": "Nocturnal, fossorial (burrowing), secretive",
+    "diet": "Small mammals, lizards, frogs, and other snakes"
+  },
+  {
+    "name": "Banded Malaysian",
+    "scientific_name": "Lycodon subcinctus",
+    "description": "A slender snake with distinctive white or yellow bands on a dark brown or black body.",
+    "venomous": false,
+    "conservation_status": "Least Concern",
+    "marine": false,
+    "image_path": "assets/images/banded_malaysian_coral_snake.jpeg",
+    "classification": {
+      "size": "Medium",
+      "color_pattern": "Dark brown or black with white or yellow bands",
+      "distinct_feature": "Enlarged teeth at front of mouth, flattened head"
+    },
+    "habitat": "Forests, plantations, and rural areas",
+    "geographic_range": "Southeast Asia including the Philippines",
+    "behavior": "Nocturnal, excellent climber",
+    "diet": "Primarily geckos and skinks"
+  },
+  {
+    "name": "Blue-Lipped Sea Krait",
+    "scientific_name": "Laticauda laticaudata",
+    "description": "A highly venomous sea snake with distinctive blue lips and a banded pattern of black and blue-gray.",
+    "venomous": true,
+    "conservation_status": "Least Concern",
+    "marine": true,
+    "image_path": "assets/images/blue_lipped_sea_krait.jpeg",
+    "classification": {
+      "size": "Medium",
+      "color_pattern": "Black bands alternating with blue-gray bands, blue lips",
+      "distinct_feature": "Flattened paddle-like tail for swimming, blue lips"
+    },
+    "habitat": "Coral reefs and coastal waters",
+    "geographic_range": "Indo-Pacific region including Philippine waters",
+    "behavior": "Semi-aquatic, comes to land to rest and lay eggs",
+    "diet": "Primarily eels and small fish"
+  },
+  {
+    "name": "Blunthead Slug Snake",
+    "scientific_name": "Aplopeltura boa",
+    "description": "A slender, arboreal snake with a distinctive blunt head and large eyes, specialized for feeding on slugs and snails.",
+    "venomous": false,
+    "conservation_status": "Least Concern",
+    "marine": false,
+    "image_path": "assets/images/blunthead_slug_snake.jpeg",
+    "classification": {
+      "size": "Medium",
+      "color_pattern": "Brown or gray with darker blotches or crossbands",
+      "distinct_feature": "Blunt head, large eyes, slender body"
+    },
+    "habitat": "Tropical rainforests",
+    "geographic_range": "Southeast Asia including the Philippines",
+    "behavior": "Nocturnal, arboreal",
+    "diet": "Specialized diet of slugs and snails"
+  },
+  {
+    "name": "Chinese Sea Krait",
+    "scientific_name": "Laticauda semifasciata",
+    "description": "A venomous sea snake with distinctive black bands on a bluish-gray body and a flattened tail for swimming.",
+    "venomous": true,
+    "conservation_status": "Near Threatened",
+    "marine": true,
+    "image_path": "assets/images/chinese_sea_krait.jpeg",
+    "classification": {
+      "size": "Medium to Large",
+      "color_pattern": "Bluish-gray with black bands",
+      "distinct_feature": "Flattened paddle-like tail, broad black bands"
+    },
+    "habitat": "Coral reefs and coastal waters",
+    "geographic_range": "Western Pacific including Philippine waters",
+    "behavior": "Semi-aquatic, comes to land to rest and lay eggs",
+    "diet": "Primarily eels and small fish"
+  },
+  {
+    "name": "Common Mock Viper",
+    "scientific_name": "Psammodynastes pulverulentus",
+    "description": "A small snake that mimics the appearance of venomous vipers with its triangular head and aggressive display.",
+    "venomous": false,
+    "conservation_status": "Least Concern",
+    "marine": false,
+    "image_path": "assets/images/common_mock_viper.jpg",
+    "classification": {
+      "size": "Small",
+      "color_pattern": "Brown or gray with darker markings, often with a light line along the spine",
+      "distinct_feature": "Triangular head, vertical pupils, mimics true vipers"
+    },
+    "habitat": "Forests, gardens, and agricultural areas",
+    "geographic_range": "Southeast Asia including the Philippines",
+    "behavior": "Primarily diurnal, terrestrial but can climb",
+    "diet": "Lizards, frogs, and small mammals"
+  },
+  {
+    "name": "Coral Snake",
+    "scientific_name": "Calliophis spp.",
+    "description": "A group of venomous snakes with bright colored bands, typically red, yellow/white, and black.",
+    "venomous": true,
+    "conservation_status": "Least Concern",
+    "marine": false,
+    "image_path": "assets/images/coral_snake.jpeg",
+    "classification": {
+      "size": "Small to Medium",
+      "color_pattern": "Bright bands of red, yellow/white, and black",
+      "distinct_feature": "Distinctive banded pattern, small head"
+    },
+    "habitat": "Forests, woodlands, and rocky areas",
+    "geographic_range": "Found throughout the Philippines",
+    "behavior": "Secretive, often burrowing underground or hiding under leaf litter",
+    "diet": "Primarily other snakes, lizards, and small mammals"
+  },
+  {
+    "name": "Dog-Toothed Cat Snake",
+    "scientific_name": "Boiga cynodon",
+    "description": "A large, arboreal rear-fanged venomous snake with large teeth and vertical pupils.",
+    "venomous": true,
+    "conservation_status": "Least Concern",
+    "marine": false,
+    "image_path": "assets/images/dog-toothed_cat_snake.jpg",
+    "classification": {
+      "size": "Large",
+      "color_pattern": "Light brown or gray with darker blotches or crossbands",
+      "distinct_feature": "Large head, vertical pupils, long and slender body"
+    },
+    "habitat": "Tropical forests",
+    "geographic_range": "Southeast Asia including the Philippines",
+    "behavior": "Nocturnal, arboreal",
+    "diet": "Birds, bats, lizards, and small mammals"
+  },
+  {
+    "name": "Gold-Ringed Cat Snake",
+    "scientific_name": "Boiga dendrophila",
+    "description": "A striking black snake with bright yellow bands, also known as the Mangrove Snake.",
+    "venomous": true,
+    "conservation_status": "Least Concern",
+    "marine": false,
+    "image_path": "assets/images/gold_ringed_cat_snake.jpg",
+    "classification": {
+      "size": "Large",
+      "color_pattern": "Glossy black with bright yellow bands",
+      "distinct_feature": "Distinctive yellow rings/bands on black body"
+    },
+    "habitat": "Mangrove forests, lowland forests, often near water",
+    "geographic_range": "Southeast Asia including the Philippines",
+    "behavior": "Nocturnal, arboreal, mildly aggressive when threatened",
+    "diet": "Birds, lizards, frogs, and small mammals"
+  },
+  {
+    "name": "Green Tree Python",
+    "scientific_name": "Morelia viridis",
+    "description": "A striking emerald green snake that spends most of its life in trees, known for its distinctive coiling posture.",
+    "venomous": false,
+    "conservation_status": "Least Concern",
+    "marine": false,
+    "image_path": "assets/images/green_tree_python.jpg",
+    "classification": {
+      "size": "Medium to Large",
+      "color_pattern": "Bright emerald green, sometimes with white or yellow markings",
+      "distinct_feature": "Distinctive coiling posture on branches, heat-sensing pits"
+    },
+    "habitat": "Tropical rainforests",
+    "geographic_range": "New Guinea, Indonesia, and Australia; found in the Philippines in captivity",
+    "behavior": "Arboreal, ambush predator",
+    "diet": "Small mammals and birds"
+  },
+  {
+    "name": "King Cobra",
+    "scientific_name": "Ophiophagus hannah",
+    "description": "The world's longest venomous snake, capable of raising its head high off the ground and flaring its distinctive hood.",
+    "venomous": true,
+    "conservation_status": "Vulnerable",
+    "marine": false,
+    "image_path": "assets/images/king_cobra.jpeg",
+    "classification": {
+      "size": "Very Large",
+      "color_pattern": "Olive-green, brown, or black, sometimes with yellow or white bands",
+      "distinct_feature": "Expandable hood, raised head posture when threatened"
+    },
+    "habitat": "Forests, bamboo thickets, mangrove swamps",
+    "geographic_range": "Southeast Asia including parts of the Philippines",
+    "behavior": "Diurnal, terrestrial but can climb trees, builds nests for eggs",
+    "diet": "Primarily other snakes, including venomous species"
+  },
+  {
+    "name": "Marine File Snake",
+    "scientific_name": "Acrochordus granulatus",
+    "description": "An aquatic snake with loose, baggy skin covered in small, rough scales that give it a file-like texture.",
+    "venomous": false,
+    "conservation_status": "Least Concern",
+    "marine": true,
+    "image_path": "assets/images/marine_file_snake.jpg",
+    "classification": {
+      "size": "Medium",
+      "color_pattern": "Gray or brown with darker blotches or bands",
+      "distinct_feature": "Loose, baggy skin with rough, file-like scales"
+    },
+    "habitat": "Coastal waters, mangroves, and estuaries",
+    "geographic_range": "Indo-Pacific region including Philippine waters",
+    "behavior": "Fully aquatic, poor mobility on land",
+    "diet": "Fish"
+  },
+  {
+    "name": "Oriental Whipsnake",
+    "scientific_name": "Ahaetulla prasina",
+    "description": "A slender, bright green tree snake with a pointed snout and horizontal pupils.",
+    "venomous": true,
+    "conservation_status": "Least Concern",
+    "marine": false,
+    "image_path": "assets/images/oriental_whipsnake.jpeg",
+    "classification": {
+      "size": "Medium to Large",
+      "color_pattern": "Bright green, sometimes with white or yellow ventral scales",
+      "distinct_feature": "Very slender body, pointed snout, horizontal pupils"
+    },
+    "habitat": "Forests, gardens, and agricultural areas",
+    "geographic_range": "Southeast Asia including the Philippines",
+    "behavior": "Diurnal, arboreal (tree-dwelling)",
+    "diet": "Lizards, frogs, birds, and small mammals"
+  },
+  {
+    "name": "Ornate Sea Snake",
+    "scientific_name": "Hydrophis ornatus",
+    "description": "A venomous sea snake with a pattern of dark bands or blotches on a lighter background.",
+    "venomous": true,
+    "conservation_status": "Least Concern",
+    "marine": true,
+    "image_path": "assets/images/ornate_sea_snake.jpeg",
+    "classification": {
+      "size": "Medium",
+      "color_pattern": "Gray or olive with dark bands or rhomboidal markings",
+      "distinct_feature": "Flattened paddle-like tail, small head"
+    },
+    "habitat": "Coral reefs, shallow coastal waters",
+    "geographic_range": "Indo-Pacific region including Philippine waters",
+    "behavior": "Fully aquatic",
+    "diet": "Fish, particularly eels"
+  },
+  {
+    "name": "Painted Bronzeback",
+    "scientific_name": "Dendrelaphis pictus",
+    "description": "A slender, fast-moving tree snake with a bronze-colored back and blue flanks visible when the snake expands its body.",
+    "venomous": false,
+    "conservation_status": "Least Concern",
+    "marine": false,
+    "image_path": "assets/images/painted_bronzeback.jpg",
+    "classification": {
+      "size": "Medium",
+      "color_pattern": "Bronze or brown back with blue or turquoise flanks",
+      "distinct_feature": "Can expand body to reveal bright blue skin between scales"
+    },
+    "habitat": "Forests, gardens, and agricultural areas",
+    "geographic_range": "Southeast Asia including the Philippines",
+    "behavior": "Diurnal, arboreal, very fast-moving",
+    "diet": "Lizards, frogs, and small birds"
+  },
+  {
+    "name": "Paradise Flying Snake",
+    "scientific_name": "Chrysopelea paradisi",
+    "description": "A colorful tree snake capable of gliding from tree to tree by flattening its body and making undulating movements in the air.",
+    "venomous": true,
+    "conservation_status": "Least Concern",
+    "marine": false,
+    "image_path": "assets/images/paradise_flying_snake.jpeg",
+    "classification": {
+      "size": "Medium",
+      "color_pattern": "Black with green, yellow, or red spots forming a pattern",
+      "distinct_feature": "Ability to glide through air, keeled scales"
+    },
+    "habitat": "Tropical forests",
+    "geographic_range": "Southeast Asia including the Philippines",
+    "behavior": "Diurnal, arboreal, capable of gliding flight",
+    "diet": "Lizards, frogs, birds, and bats"
+  },
+  {
+    "name": "Philippine Pit Viper",
+    "scientific_name": "Trimeresurus flavomaculatus",
+    "description": "A venomous pit viper endemic to the Philippines with variable coloration, often green with yellow or red markings.",
+    "venomous": true,
+    "conservation_status": "Least Concern",
+    "marine": false,
+    "image_path": "assets/images/philippine_pit_viper.jpg",
+    "classification": {
+      "size": "Medium",
+      "color_pattern": "Usually green with yellow or red spots or markings",
+      "distinct_feature": "Heat-sensing pit organs between eyes and nostrils, triangular head"
+    },
+    "habitat": "Forests and mountainous regions",
+    "geographic_range": "Endemic to the Philippines",
+    "behavior": "Primarily nocturnal, arboreal",
+    "diet": "Small mammals, birds, lizards, and frogs"
+  },
+  {
+    "name": "Philippine Shrub Snake",
+    "scientific_name": "Gongylosoma semperi",
+    "description": "A small, slender snake endemic to the Philippines, typically found in shrubby vegetation.",
+    "venomous": false,
+    "conservation_status": "Least Concern",
+    "marine": false,
+    "image_path": "assets/images/philippine_shrub_snake.jpg",
+    "classification": {
+      "size": "Small",
+      "color_pattern": "Brown or reddish-brown with darker markings",
+      "distinct_feature": "Slender body, smooth scales"
+    },
+    "habitat": "Forests and shrublands",
+    "geographic_range": "Endemic to the Philippines",
+    "behavior": "Diurnal, terrestrial",
+    "diet": "Small invertebrates, particularly insects"
+  },
+  {
+    "name": "Red-Tailed Green Ratsnake",
+    "scientific_name": "Gonyosoma oxycephalum",
+    "description": "A large, bright green snake with a reddish tail and a pointed snout.",
+    "venomous": false,
+    "conservation_status": "Least Concern",
+    "marine": false,
+    "image_path": "assets/images/red_tailed_green_rat_snake.jpeg",
+    "classification": {
+      "size": "Large",
+      "color_pattern": "Bright green body with reddish-brown tail",
+      "distinct_feature": "Pointed snout, red tail, large size"
+    },
+    "habitat": "Forests, often near water",
+    "geographic_range": "Southeast Asia including the Philippines",
+    "behavior": "Diurnal, arboreal",
+    "diet": "Birds, bats, rodents, and lizards"
+  },
+  {
+    "name": "Reticulated Python",
+    "scientific_name": "Python reticulatus",
+    "description": "One of the world's longest snakes with a complex geometric pattern resembling a net or reticulation.",
+    "venomous": false,
+    "conservation_status": "Least Concern",
+    "marine": false,
+    "image_path": "assets/images/reticulated_python.jpeg",
+    "classification": {
+      "size": "Very Large",
+      "color_pattern": "Complex geometric patterns of black, yellow, and brown",
+      "distinct_feature": "Net-like pattern, can reach enormous sizes"
+    },
+    "habitat": "Rainforests, woodlands, grasslands, often near water",
+    "geographic_range": "Southeast Asia including the Philippines",
+    "behavior": "Excellent swimmers and climbers",
+    "diet": "Mammals and birds, kills prey by constriction"
+  },
+  {
+    "name": "Samar Cobra",
+    "scientific_name": "Naja samarensis",
+    "description": "A venomous cobra species endemic to the Philippines, known for its hood and distinctive coloration.",
+    "venomous": true,
+    "conservation_status": "Least Concern",
+    "marine": false,
+    "image_path": "assets/images/samar_cobra.jpeg",
+    "classification": {
+      "size": "Medium",
+      "color_pattern": "Variable, often yellowish, reddish, or brown with darker markings",
+      "distinct_feature": "Expandable hood, distinctive throat markings"
+    },
+    "habitat": "Forests, agricultural areas, and near human settlements",
+    "geographic_range": "Endemic to the Philippines, primarily in Visayas and Mindanao",
+    "behavior": "Primarily terrestrial, active during day and night",
+    "diet": "Small mammals, birds, frogs, and other snakes"
+  },
+  {
+    "name": "Specklebelly Keelback",
+    "scientific_name": "Rhabdophis chrysargos",
+    "description": "A mildly venomous water snake with keeled scales and speckled belly.",
+    "venomous": true,
+    "conservation_status": "Least Concern",
+    "marine": false,
+    "image_path": "assets/images/specklebelly.jpg",
+    "classification": {
+      "size": "Medium",
+      "color_pattern": "Olive or brown with darker markings, speckled belly",
+      "distinct_feature": "Keeled scales, nuchal glands that secrete toxins"
+    },
+    "habitat": "Forests and wetlands, often near water",
+    "geographic_range": "Southeast Asia including the Philippines",
+    "behavior": "Semi-aquatic, diurnal",
+    "diet": "Frogs, fish, and occasionally small mammals"
+  },
+  {
+    "name": "Yellow-Bellied Sea Snake",
+    "scientific_name": "Hydrophis platurus",
+    "description": "A highly venomous sea snake with a distinctive yellow belly and black back, the most widely distributed sea snake in the world.",
+    "venomous": true,
+    "conservation_status": "Least Concern",
+    "marine": true,
+    "image_path": "assets/images/yellow_bellied_sea_snake.jpg",
+    "classification": {
+      "size": "Medium",
+      "color_pattern": "Black or dark brown upper body with bright yellow lower body",
+      "distinct_feature": "Flattened paddle-like tail, sharp contrast between dark back and yellow belly"
+    },
+    "habitat": "Open ocean and coastal waters",
+    "geographic_range": "Tropical and subtropical waters worldwide, including Philippine waters",
+    "behavior": "Fully aquatic, forms large aggregations",
+    "diet": "Small fish"
+  }
+]

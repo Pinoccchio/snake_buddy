@@ -1,0 +1,156 @@
+[
+    {
+        "name": "Asian Sunbeam Snake",
+        "image_path": "assets/images/asian_sunbeam_snake.jpg",
+        "scientific_name": "Xenopeltis unicolor",
+        "venomous": false,
+        "conservation_status": "Least Concern",
+        "description": "The Asian Sunbeam Snake is a non-venomous snake found in the forests and grasslands of Southeast Asia. It is known for its iridescent scales, which reflect a rainbow of colors in the sunlight. This snake can reach lengths of up to 4 feet (1.2 meters) and has a smooth, glossy appearance.\n\nThe Asian Sunbeam Snake is a burrowing species, spending much of its time underground or hidden in leaf litter. It feeds primarily on small mammals, birds, and reptiles, which it captures with its quick strikes. This snake is nocturnal, meaning it is active at night, and it relies on its excellent sense of smell to hunt.\n\nDespite its striking appearance, the Asian Sunbeam Snake is generally shy and will flee if threatened. It is not considered dangerous to humans, and bites are rare. The species is oviparous, laying eggs that hatch into fully formed young snakes.\n\nThe Asian Sunbeam Snake is not considered endangered, but habitat destruction and the pet trade pose potential threats to its population.",
+        "marine": false,
+        "classification": {
+            "size": "1 to 1.2 meters",
+            "color_pattern": "Iridescent scales with a smooth, glossy appearance.",
+            "distinct_feature": "Iridescent scales that reflect a rainbow of colors."
+        }
+    },
+    {
+        "name": "Banded Malayan Coral Snake",
+        "image_path": "assets/images/banded_malaysian_coral_snake.jpeg",
+        "scientific_name": "Calliophis intestinalis",
+        "venomous": true,
+        "conservation_status": "Least Concern",
+        "description": "The Banded Malayan Coral Snake is a venomous snake found in the forests of Malaysia. It is known for its striking black and white bands and its small size. This snake can reach lengths of up to 2 feet (0.6 meters) and has a slender body.\n\nThe Banded Malaysian Snake feeds primarily on other snakes, including venomous species. It is a nocturnal hunter, using its potent venom to immobilize its prey. Despite its venomous nature, the Banded Malaysian Snake is not aggressive towards humans and will only bite if provoked.\n\nThis snake is oviparous, laying eggs in hidden locations. The female guards the eggs until they hatch, providing protection from predators. The Banded Malaysian Snake is not considered endangered, but habitat destruction poses potential threats to its population.",
+        "marine": false,
+        "classification": {
+            "size": "0.5 to 0.6 meters",
+            "color_pattern": "Black and white bands with a slender body.",
+            "distinct_feature": "Striking black and white bands."
+        }
+    },
+    {
+        "name": "Blue-lipped Sea Krait",
+        "image_path": "assets/images/blue_lipped_sea_krait.jpeg",
+        "scientific_name": "Laticauda laticaudata",
+        "venomous": true,
+        "conservation_status": "Least Concern",
+        "description": "The Blue-lipped Sea Krait is a highly venomous sea snake found in the coastal waters of the Indo-Pacific region. It is known for its distinctive blue lips and black and white banding. This snake can reach lengths of up to 4 feet (1.2 meters) and is an excellent swimmer.\n\nThe Blue-lipped Sea Krait feeds primarily on eels and small fish, which it hunts in the coral reefs and rocky crevices of its habitat. It is a nocturnal hunter, using its potent venom to immobilize its prey. Despite its venomous nature, the Blue-lipped Sea Krait is not aggressive towards humans and will only bite if provoked.\n\nThis snake is oviparous, laying eggs on land in sheltered locations. The female guards the eggs until they hatch, providing protection from predators. The Blue-lipped Sea Krait is not considered endangered, but habitat destruction and pollution pose potential threats to its population.",
+        "marine": true,
+        "classification": {
+            "size": "1 to 1.2 meters",
+            "color_pattern": "Black and white banding with blue lips.",
+            "distinct_feature": "Distinctive blue lips."
+        }
+    },
+    {
+        "name": "Blunthead Slug Snake",
+        "image_path": "assets/images/blunthead_slug_snake.jpeg",
+        "scientific_name": "Aplopeltura boa",
+        "venomous": false,
+        "conservation_status": "Least Concern",
+        "description": "The Blunthead Slug Snake is a non-venomous snake found in the forests of Southeast Asia. It is known for its blunt head and slender body. This snake can reach lengths of up to 2 feet (0.6 meters) and has a smooth, glossy appearance.\n\nThe Blunthead Slug Snake feeds primarily on slugs and snails, which it captures with its quick strikes. It is a nocturnal hunter, using its excellent sense of smell to hunt. Despite its non-venomous nature, the Blunthead Slug Snake is not considered dangerous to humans, and bites are rare.\n\nThis snake is oviparous, laying eggs in hidden locations. The female guards the eggs until they hatch, providing protection from predators. The Blunthead Slug Snake is not considered endangered, but habitat destruction poses potential threats to its population.",
+        "marine": false,
+        "classification": {
+            "size": "0.5 to 0.6 meters",
+            "color_pattern": "Smooth, glossy appearance with a blunt head.",
+            "distinct_feature": "Blunt head."
+        }
+    },
+    {
+        "name": "Chinese Sea Krait",
+        "image_path": "assets/images/chinese_sea_krait.jpeg",
+        "scientific_name": "Laticauda semifasciata",
+        "venomous": true,
+        "conservation_status": "Least Concern",
+        "description": "The Chinese Sea Krait is a highly venomous sea snake found in the coastal waters of East Asia. It is known for its distinctive black and white banding and its ability to live both in the sea and on land. This snake can reach lengths of up to 4 feet (1.2 meters) and is an excellent swimmer.\n\nThe Chinese Sea Krait feeds primarily on eels and small fish, which it hunts in the coral reefs and rocky crevices of its habitat. It is a nocturnal hunter, using its potent venom to immobilize its prey. Despite its venomous nature, the Chinese Sea Krait is not aggressive towards humans and will only bite if provoked.\n\nThis snake is oviparous, laying eggs on land in sheltered locations. The female guards the eggs until they hatch, providing protection from predators. The Chinese Sea Krait is not considered endangered, but habitat destruction and pollution pose potential threats to its population.",
+        "marine": true,
+        "classification": {
+            "size": "1 to 1.2 meters",
+            "color_pattern": "Black and white banding with a flattened tail for swimming.",
+            "distinct_feature": "Ability to live both in the sea and on land."
+        }
+    },
+    {
+        "name": "Common Mock Viper",
+        "image_path": "assets/images/common_mock_viper.jpg",
+        "scientific_name": "Psammodynastes pulverulentus",
+        "venomous": false,
+        "conservation_status": "Least Concern",
+        "description": "The Common Mock Viper is a non-venomous snake found in the forests and grasslands of Southeast Asia. It is known for its viper-like appearance and its small size. This snake can reach lengths of up to 2 feet (0.6 meters) and has a slender body.\n\nThe Common Mock Viper feeds primarily on small mammals, birds, and reptiles, which it captures with its quick strikes. It is a nocturnal hunter, using its excellent sense of smell to hunt. Despite its non-venomous nature, the Common Mock Viper is not considered dangerous to humans, and bites are rare.\n\nThis snake is oviparous, laying eggs in hidden locations. The female guards the eggs until they hatch, providing protection from predators. The Common Mock Viper is not considered endangered, but habitat destruction poses potential threats to its population.",
+        "marine": false,
+        "classification": {
+            "size": "0.5 to 0.6 meters",
+            "color_pattern": "Viper-like appearance with a slender body.",
+            "distinct_feature": "Viper-like appearance."
+        }
+    },
+    {
+        "name": "Coral Snake",
+        "image_path": "assets/images/coral_snake.jpeg",
+        "scientific_name": "Micrurus fulvius",
+        "venomous": true,
+        "conservation_status": "Least Concern",
+        "description": "The Coral Snake is a highly venomous snake found in the forests and grasslands of the Americas. It is known for its distinctive red, yellow, and black banding. This snake can reach lengths of up to 3 feet (0.9 meters) and has a slender body.\n\nThe Coral Snake feeds primarily on other snakes, including venomous species. It is a nocturnal hunter, using its potent venom to immobilize its prey. Despite its venomous nature, the Coral Snake is not aggressive towards humans and will only bite if provoked.\n\nThis snake is oviparous, laying eggs in hidden locations. The female guards the eggs until they hatch, providing protection from predators. The Coral Snake is not considered endangered, but habitat destruction poses potential threats to its population.",
+        "marine": false,
+        "classification": {
+            "size": "0.7 to 0.9 meters",
+            "color_pattern": "Red, yellow, and black banding with a slender body.",
+            "distinct_feature": "Distinctive red, yellow, and black banding."
+        }
+    },
+    {
+        "name": "Gold-ringed Cat Snake",
+        "image_path": "assets/images/gold_ringed_cat_snake.jpg",
+        "scientific_name": "Boiga dendrophila",
+        "venomous": true,
+        "conservation_status": "Least Concern",
+        "description": "The Gold-ringed Cat Snake is a mildly venomous snake found in the forests of Southeast Asia. It is known for its striking black and yellow bands and its slender body. This snake can reach lengths of up to 8 feet (2.4 meters) and has a smooth, glossy appearance.\n\nThe Gold-ringed Cat Snake feeds primarily on birds and small mammals, which it captures with its quick strikes. It is a nocturnal hunter, using its excellent sense of smell to hunt. Despite its mildly venomous nature, the Gold-ringed Cat Snake is not considered dangerous to humans, and bites are rare.\n\nThis snake is oviparous, laying eggs in hidden locations. The female guards the eggs until they hatch, providing protection from predators. The Gold-ringed Cat Snake is not considered endangered, but habitat destruction poses potential threats to its population.",
+        "marine": false,
+        "classification": {
+            "size": "1.8 to 2.4 meters",
+            "color_pattern": "Black and yellow bands with a slender body.",
+            "distinct_feature": "Striking black and yellow bands."
+        }
+    },
+    {
+        "name": "King Cobra",
+        "image_path": "assets/images/king_cobra.jpeg",
+        "scientific_name": "Ophiophagus hannah",
+        "venomous": true,
+        "conservation_status": "Vulnerable",
+        "description": "The King Cobra is the longest venomous snake in the world, reaching lengths of up to 18 feet. It is typically found in the forests and wetlands of South and Southeast Asia, where it prefers habitats near water. This highly recognizable snake is usually olive green, tan, or black with pale yellow cross bands. Its broad head, distinctive hood, and ability to raise a third of its body off the ground make it particularly intimidating when threatened.\n\nUnlike most snakes, the King Cobra's diet primarily consists of other snakes, including venomous species. It is a diurnal hunter, meaning it's active during the day. While the King Cobra generally avoids human interaction, it becomes highly defensive when cornered or guarding its nest. When provoked, it flares its hood, hisses loudly, and may deliver a potent bite.\n\nThe King Cobra's neurotoxic venom can cause paralysis and respiratory failure, and though its venom is less potent compared to some other cobras, the sheer volume delivered in a bite makes it highly dangerous to humans. Immediate medical treatment and antivenom are crucial for survival in case of a bite.\n\nKing Cobras are oviparous, laying up to 40 eggs in a nest that the female guards until they hatch. Despite their fearsome reputation, King Cobras are shy and prefer to avoid confrontation, making bites relatively rare. However, due to habitat destruction, the species is listed as vulnerable by the IUCN.",
+        "marine": false,
+        "classification": {
+            "size": "3 to 5.5 meters",
+            "color_pattern": "Yellow, green, brown, and black with yellow or white crossbars or chevrons.",
+            "distinct_feature": "Has a hood."
+        }
+    },
+    {
+        "name": "Marine File Snake",
+        "image_path": "assets/images/marine_file_snake.jpg",
+        "scientific_name": "Acrochordus granulatus",
+        "venomous": false,
+        "conservation_status": "Least Concern",
+        "description": "The Marine File Snake, also known as the Little File Snake, is a non-venomous aquatic species found throughout coastal regions of Southeast Asia and Northern Australia. This snake has a distinctive rough, baggy skin covered in granular scales that give it a file-like texture, hence its name. Typically olive-brown to gray in color, the Marine File Snake can reach lengths of up to 6 feet (1.8 meters), with females generally larger than males.\n\nPrimarily nocturnal, the Marine File Snake inhabits estuaries, rivers, and coastal waters, where it spends much of its time submerged. Its flattened body and loose, wrinkled skin make it highly adapted to an aquatic lifestyle. Unlike many sea snakes, it is not fully marine and often returns to freshwater or brackish environments.\n\nFeeding mostly on fish and eels, the Marine File Snake is an ambush predator, using its sluggish movements and camouflage to surprise prey. It is a strong swimmer but often relies on its ability to remain motionless for long periods, waiting for unsuspecting fish to come within striking range.\n\nDespite its somewhat intimidating appearance, the Marine File Snake is harmless to humans and poses no threat. Due to its low metabolic rate, it can survive for long periods without food, making it well-suited to the challenging environments it inhabits. The species is ovoviviparous, giving birth to live young rather than laying eggs, with litters ranging from 6 to 30 offspring.\n\nThough not considered endangered, the Marine File Snake’s reliance on coastal habitats makes it vulnerable to habitat destruction and pollution.",
+        "marine": true,
+        "classification": {
+            "size": "1.2 to 2.4 meters",
+            "color_pattern": "Dark brown, olive, or gray with fine blackish spots, giving a mottled appearance.",
+            "distinct_feature": "Loose, granular skin with a rough texture similar to a file."
+        }
+    },
+    {
+        "name": "Albino Burmese Python",
+        "image_path": "assets/images/albino_burmese_python.jpg",
+        "scientific_name": "Python bivittatus",
+        "venomous": false,
+        "conservation_status": "Vulnerable",
+        "description": "The Albino Burmese Python is a non-venomous constrictor snake known for its striking yellow and white coloration. It is a genetic mutation of the Burmese Python, which is native to Southeast Asia. This snake can reach lengths of up to 23 feet (7 meters) and weigh over 200 pounds (90 kilograms).\n\nThe Albino Burmese Python is a powerful constrictor, using its muscular body to subdue prey, which includes birds, mammals, and reptiles. It is primarily nocturnal and relies on its excellent sense of smell and heat-sensing pits to locate prey.\n\nDespite its size and strength, the Albino Burmese Python is generally docile and is a popular pet among reptile enthusiasts. However, due to its large size, it requires significant space and care. The species is oviparous, laying clutches of up to 100 eggs, which the female incubates by coiling around them and shivering to generate heat.\n\nThe Albino Burmese Python is listed as vulnerable due to habitat loss and hunting for its skin and the pet trade. Conservation efforts are focused on protecting its natural habitat and regulating trade.",
+        "marine": false,
+        "classification": {
+            "size": "5 to 7 meters",
+            "color_pattern": "Yellow and white coloration with a pattern of blotches.",
+            "distinct_feature": "Striking yellow and white coloration."
+        }
+    }
+]
