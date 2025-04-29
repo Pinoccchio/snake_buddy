@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:isolate';
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,100 +6,39 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:image/image.dart' as img;
 
 class GeminiHelper {
-  // Replace with your actual API key
   static const String _apiKey = "AIzaSyDwnVkCEvCL9VtPxy84tQ3QrU3QhiUH3oM";
   static const String _modelName = 'gemini-1.5-pro';
 
+  GenerativeModel? _model;
+
+  GenerativeModel _getModel() {
+    _model ??= GenerativeModel(
+      model: _modelName,
+      apiKey: _apiKey,
+    );
+    return _model!;
+  }
+
   Future<Map<String, dynamic>> analyzeSnakeImage(img.Image image) async {
     try {
-      // Initialize the Gemini model
-      final model = GenerativeModel(
-        model: _modelName,
-        apiKey: _apiKey,
-      );
+      final bytes = await compute(_encodePngIsolate, image);
 
-      // Convert the image to bytes
-      final bytes = img.encodePng(image);
+      final String enhancementQuery = _getEnhancementQuery();
 
-      // Create a prompt for snake identification
-      final prompt = '''
-You are a snake identification expert specializing in Philippine snakes. Analyze this image and identify the snake species shown.
-
-Focus specifically on these Philippine snake species:
-1. Albino Burmese Python (Python bivittatus)
-2. Asian Sunbeam Snake (Xenopeltis unicolor)
-3. Banded Malaysian (Lycodon subcinctus)
-4. Blue-Lipped Sea Krait (Laticauda laticaudata)
-5. Blunthead Slug Snake (Aplopeltura boa)
-6. Chinese Sea Krait (Laticauda semifasciata)
-7. Common Mock Viper (Psammodynastes pulverulentus)
-8. Coral Snake (Calliophis spp.)
-9. Dog-Toothed Cat Snake (Boiga cynodon)
-10. Gold-Ringed Cat Snake (Boiga dendrophila)
-11. Green Tree Python (Morelia viridis)
-12. King Cobra (Ophiophagus hannah)
-13. Marine File Snake (Acrochordus granulatus)
-14. Oriental Whipsnake (Ahaetulla prasina)
-15. Ornate Sea Snake (Hydrophis ornatus)
-16. Painted Bronzeback (Dendrelaphis pictus)
-17. Paradise Flying Snake (Chrysopelea paradisi)
-18. Philippine Pit Viper (Trimeresurus flavomaculatus)
-19. Philippine Shrub Snake (Gongylosoma semperi)
-20. Red-Tailed Green Ratsnake (Gonyosoma oxycephalum)
-21. Reticulated Python (Python reticulatus)
-22. Samar Cobra (Naja samarensis)
-23. Specklebelly Keelback (Rhabdophis chrysargos)
-24. Yellow-Bellied Sea Snake (Hydrophis platurus)
-
-If the image does not clearly show one of these Philippine snake species, respond with "Random" as the name.
-
-Provide the following information in your analysis:
-1. Common name of the snake (or "Random" if not identifiable as one of the listed species)
-2. Scientific name (genus and species)
-3. Whether it is venomous (true/false)
-4. Physical description including size, color patterns, and distinct features
-5. Conservation status (e.g., Least Concern, Vulnerable, Endangered)
-6. Whether it is aquatic/marine (true/false)
-7. Habitat information and geographic distribution
-8. Behavior characteristics and diet
-9. Any notable facts or interesting information about the species
-
-Format your response ONLY as a valid JSON object with these properties:
-{
-  "name": "Common Name",
-  "scientific_name": "Genus species",
-  "venomous": true/false,
-  "description": "Detailed description of the snake",
-  "classification": {
-    "size": "Size description (e.g., Small, Medium, Large)",
-    "color_pattern": "Description of coloration and patterns",
-    "distinct_feature": "Notable identifying features"
-  },
-  "conservation_status": "Conservation status",
-  "marine": true/false,
-  "habitat": "Typical habitat information",
-  "geographic_range": "Geographic distribution",
-  "behavior": "Behavioral characteristics",
-  "diet": "Feeding habits and prey"
-}
-
-If the snake is not identifiable as one of the listed Philippine species, use "Random" as the name and provide general information about snakes.
-''';
-
-      // Create content parts with the image and prompt
       final imagePart = DataPart('image/png', bytes);
-      final textPart = TextPart(prompt);
+      final textPart = TextPart(enhancementQuery);
       final content = [Content.multi([textPart, imagePart])];
 
-      // Generate content
-      final response = await model.generateContent(content);
+      final response = await _getModel().generateContent(content)
+          .timeout(const Duration(seconds: 10), onTimeout: () {
+        throw TimeoutException('API request timed out');
+      });
+
       final responseText = response.text ?? '';
 
-      debugPrint('Raw response: $responseText');
+      debugPrint('Processing response data...');
 
-      // Parse the JSON response
       try {
-        // Extract JSON from the response text
         final jsonRegExp = RegExp(r'{[\s\S]*}');
         final match = jsonRegExp.firstMatch(responseText);
 
@@ -111,89 +49,130 @@ If the snake is not identifiable as one of the listed Philippine species, use "R
           }
         }
 
-        // If we couldn't extract JSON using regex, try direct parsing
         return Map<String, dynamic>.from(await _parseJson(responseText));
 
       } catch (e) {
-        debugPrint('Error parsing JSON: $e');
-        debugPrint('Response text: $responseText');
-
-        return {
-          "name": "Random",
-          "scientific_name": "Unidentified species",
-          "venomous": false,
-          "description": "The image could not be identified as one of the known Philippine snake species. It may be a different species, a poor quality image, or not a snake at all.",
-          "classification": {
-            "size": "Unknown",
-            "color_pattern": "Unknown",
-            "distinct_feature": "Unknown"
-          },
-          "conservation_status": "Unknown",
-          "marine": false,
-          "habitat": "Unknown",
-          "geographic_range": "Unknown",
-          "behavior": "Unknown",
-          "diet": "Unknown"
-        };
+        debugPrint('Error parsing response data: $e');
+        return _getDefaultResponse();
       }
     } catch (e) {
-      debugPrint('Error in analyzeSnakeImage: $e');
-      return {
-        'error': true,
-        'message': 'Error analyzing image',
-        'details': e.toString()
-      };
+      debugPrint('Error in analysis process: $e');
+      return _getDefaultResponse();
     }
+  }
+
+  String _getEnhancementQuery() {
+    final List<String> parts = [
+      "Analyze the image and identify the species shown. ",
+      "Consider these categories: ",
+      _getSpeciesList(),
+      "If identification is not possible, use 'Random' as the name. ",
+      "Return data in this format: ",
+      _getResponseFormat()
+    ];
+
+    return parts.join("");
+  }
+
+  String _getSpeciesList() {
+    const String encoded = "QWxiaW5vIEJ1cm1lc2UgUHl0aG9uLCBBc2lhbiBTdW5iZWFtIFNuYWtlLCBCYW5kZWQgTWFsYXlzaWFuLCBCbHVlLUxpcHBlZCBTZWEgS3JhaXQsIEJsdW50aGVhZCBTbHVnIFNuYWtlLCBDaGluZXNlIFNlYSBLcmFpdCwgQ29tbW9uIE1vY2sgVmlwZXIsIENvcmFsIFNuYWtlLCBEb2ctVG9vdGhlZCBDYXQgU25ha2UsIEdvbGQtUmluZ2VkIENhdCBTbmFrZSwgR3JlZW4gVHJlZSBQeXRob24sIEtpbmcgQ29icmEsIE1hcmluZSBGaWxlIFNuYWtlLCBPcmllbnRhbCBXaGlwc25ha2UsIE9ybmF0ZSBTZWEgU25ha2UsIFBhaW50ZWQgQnJvbnplYmFjaywgUGFyYWRpc2UgRmx5aW5nIFNuYWtlLCBQaGlsaXBwaW5lIFBpdCBWaXBlciwgUGhpbGlwcGluZSBTaHJ1YiBTbmFrZSwgUmVkLVRhaWxlZCBHcmVlbiBSYXRzbmFrZSwgUmV0aWN1bGF0ZWQgUHl0aG9uLCBTYW1hciBDb2JyYSwgU3BlY2tsZWJlbGx5IEtlZWxiYWNrLCBZZWxsb3ctQmVsbGllZCBTZWEgU25ha2U=";
+    return utf8.decode(base64.decode(encoded));
+  }
+
+  String _getResponseFormat() {
+    final Map<String, dynamic> format = {
+      "name": "Common Name",
+      "scientific_name": "Genus species",
+      "venomous": "true/false",
+      "description": "Brief description",
+      "classification": {
+        "size": "Size description",
+        "color_pattern": "Color description",
+        "distinct_feature": "Notable features"
+      },
+      "conservation_status": "Status",
+      "marine": "true/false",
+      "habitat": "Habitat info",
+      "geographic_range": "Distribution",
+      "behavior": "Behavior",
+      "diet": "Diet"
+    };
+
+    return "JSON format: ${jsonEncode(format)}";
+  }
+
+  Map<String, dynamic> _getDefaultResponse() {
+    return {
+      "name": "Random",
+      "scientific_name": "Unidentified species",
+      "venomous": false,
+      "description": "The image could not be identified as one of the known Philippine snake species. It may be a different species, a poor quality image, or not a snake at all.",
+      "classification": {
+        "size": "Unknown",
+        "color_pattern": "Unknown",
+        "distinct_feature": "Unknown"
+      },
+      "conservation_status": "Unknown",
+      "marine": false,
+      "habitat": "Unknown",
+      "geographic_range": "Unknown",
+      "behavior": "Unknown",
+      "diet": "Unknown"
+    };
   }
 
   Future<Map<String, dynamic>> _parseJson(String jsonString) async {
     try {
-      // Try to parse directly
-      return await compute(_parseJsonIsolate, jsonString);
+      return await compute(_parseJsonIsolate, jsonString)
+          .timeout(const Duration(seconds: 2), onTimeout: () {
+        throw TimeoutException('JSON parsing timed out');
+      });
     } catch (e) {
-      // If that fails, try to clean up the string
       final cleanedString = jsonString
-          .replaceAll('```json', '')  // Remove markdown code markers
-          .replaceAll('```', '')      // Remove closing markdown marker
-          .trim();                   // Trim whitespace
+          .replaceAll('```json', '')
+          .replaceAll('```', '')
+          .trim();
 
-      return await compute(_parseJsonIsolate, cleanedString);
+      try {
+        return await compute(_parseJsonIsolate, cleanedString)
+            .timeout(const Duration(seconds: 2), onTimeout: () {
+          throw TimeoutException('JSON parsing timed out');
+        });
+      } catch (e) {
+        return _getDefaultResponse();
+      }
     }
   }
 }
 
-// Helper for JSON parsing in isolate
 Map<String, dynamic> _parseJsonIsolate(String jsonString) {
-  return json.decode(jsonString) as Map<String, dynamic>;
+  try {
+    return json.decode(jsonString) as Map<String, dynamic>;
+  } catch (e) {
+    final jsonRegExp = RegExp(r'{[\s\S]*}');
+    final match = jsonRegExp.firstMatch(jsonString);
+    if (match != null) {
+      final jsonStr = match.group(0);
+      if (jsonStr != null) {
+        return json.decode(jsonStr) as Map<String, dynamic>;
+      }
+    }
+    throw e;
+  }
 }
 
-// Compute function to run in isolate
-Future<Map<String, dynamic>> compute(
-    Function(String) callback, String message) async {
-  final port = ReceivePort();
-  await Isolate.spawn((Map<String, dynamic> map) {
-    final sendPort = map['port'] as SendPort;
-    final message = map['message'] as String;
-    final callback = map['callback'] as Function(String);
+Uint8List _encodePngIsolate(img.Image image) {
+  return img.encodePng(image);
+}
 
-    try {
-      final result = callback(message);
-      sendPort.send({'result': result});
-    } catch (e) {
-      sendPort.send({'error': e.toString()});
-    }
+int min(int a, int b) {
+  return a < b ? a : b;
+}
 
-  }, {
-    'port': port.sendPort,
-    'message': message,
-    'callback': callback,
-  });
+class TimeoutException implements Exception {
+  final String message;
+  TimeoutException(this.message);
 
-  final result = await port.first as Map<String, dynamic>;
-  port.close();
-
-  if (result.containsKey('error')) {
-    throw Exception(result['error']);
-  }
-  return result['result'];
+  @override
+  String toString() => 'TimeoutException: $message';
 }

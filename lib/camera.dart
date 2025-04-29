@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:image/image.dart' as img; // Package for image decoding
+import 'package:image/image.dart' as img;
 import 'package:snake_buddy/details.dart';
-import 'package:snake_buddy/helper/gemini_helper.dart';
+import 'package:snake_buddy/helper/tflite_helper.dart';
 
 class CameraPage extends StatefulWidget {
   const CameraPage({super.key, required this.camera});
@@ -14,91 +14,154 @@ class CameraPage extends StatefulWidget {
   State<StatefulWidget> createState() => CameraPageState();
 }
 
-class CameraPageState extends State<CameraPage> {
+class CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
   late CameraController _controller;
-  late GeminiHelper _geminiHelper;
+  late TFLiteHelper _tfliteHelper;
   bool isLoading = false;
   bool disableZoom = true;
   Uint8List? capturedImageBytes;
+  String _loadingMessage = "Analyzing Snake...";
+  String _processingStage = "Initializing...";
+  bool _isCameraInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    _controller = CameraController(
-      widget.camera,
-      ResolutionPreset.veryHigh,
-      enableAudio: false,
-    );
+    WidgetsBinding.instance.addObserver(this);
+    _initializeCamera();
+    _tfliteHelper = TFLiteHelper();
+    _tfliteHelper.loadModel();
+  }
 
-    _controller.initialize().then((_) {
+  Future<void> _initializeCamera() async {
+    try {
+      _controller = CameraController(
+        widget.camera,
+        ResolutionPreset.high,
+        enableAudio: false,
+        imageFormatGroup: ImageFormatGroup.jpeg,
+      );
+
+      await _controller.initialize();
+
       if (mounted) {
-        setState(() {});
-        _controller.setExposureOffset(0.5);
-        _controller.setFlashMode(FlashMode.auto);
+        setState(() {
+          _isCameraInitialized = true;
+        });
+
+        try {
+          await _controller.setExposureOffset(0.5);
+        } catch (e) {
+          debugPrint("Error setting exposure: $e");
+        }
+
+        try {
+          await _controller.setFlashMode(FlashMode.auto);
+        } catch (e) {
+          debugPrint("Error setting flash mode: $e");
+        }
+
         if (disableZoom) {
-          _controller.setZoomLevel(1.0);
+          try {
+            await _controller.setZoomLevel(1.0);
+          } catch (e) {
+            debugPrint("Error setting zoom level: $e");
+          }
         }
       }
-    }).catchError((e) {
+    } catch (e) {
       debugPrint("Error initializing camera: $e");
-    });
+      _showErrorDialog('Camera initialization failed. Please restart the app.');
+    }
+  }
 
-    _geminiHelper = GeminiHelper();
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (!_isCameraInitialized) return;
+
+    if (state == AppLifecycleState.inactive) {
+      _controller.dispose();
+    } else if (state == AppLifecycleState.resumed) {
+      _initializeCamera();
+    }
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _controller.dispose();
+    _tfliteHelper.closeModel();
     super.dispose();
   }
 
   Future<void> captureAndProcessImage(BuildContext context) async {
-    setState(() => isLoading = true);
+    if (!_isCameraInitialized) {
+      _showErrorDialog('Camera is not ready. Please wait or restart the app.');
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+      _loadingMessage = "Analyzing Snake...";
+      _processingStage = "Capturing image...";
+    });
 
     try {
+      await Future.delayed(const Duration(milliseconds: 100));
+
       final XFile picture = await _controller.takePicture();
       final imageBytes = await picture.readAsBytes();
       capturedImageBytes = imageBytes;
+
+      setState(() {
+        _processingStage = "Processing with TensorFlow Lite...";
+      });
 
       final img.Image? decodedImage = img.decodeImage(Uint8List.fromList(imageBytes));
 
       if (decodedImage == null) {
         setState(() => isLoading = false);
-        _showErrorDialog('Failed to decode image');
+        _showErrorDialog('Failed to decode image. Please try again.');
         return;
       }
 
-      // Resize image for API processing
-      final img.Image resizedImage = img.copyResize(decodedImage, width: 512, height: 512);
+      await Future.delayed(const Duration(milliseconds: 500));
 
-      // Process with Gemini API
-      final result = await _geminiHelper.analyzeSnakeImage(resizedImage);
+      setState(() {
+        _processingStage = "Enhancing results with Gemini AI...";
+      });
+
+      final result = await _tfliteHelper.analyzeSnakeImage(decodedImage);
+
+      if (!mounted) return;
 
       setState(() => isLoading = false);
 
-      if (mounted) {
-        if (result.containsKey('error') && result['error'] == true) {
-          _showErrorDialog(result['message']);
-          return;
-        }
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DetailsPage(
-              result: result,
-              capturedImage: MemoryImage(capturedImageBytes!),
-            ),
-          ),
-        );
+      if (result.containsKey('error') && result['error'] == true) {
+        _showErrorDialog(result['message']);
+        return;
       }
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DetailsPage(
+            result: result,
+            capturedImage: MemoryImage(capturedImageBytes!),
+          ),
+        ),
+      );
     } catch (e) {
-      setState(() => isLoading = false);
-      _showErrorDialog('Error: ${e.toString()}');
+      if (mounted) {
+        setState(() => isLoading = false);
+        _showErrorDialog('Error: ${e.toString()}');
+      }
     }
   }
 
   void _showErrorDialog(String message) {
+    if (!mounted) return;
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -140,28 +203,28 @@ class CameraPageState extends State<CameraPage> {
                   fit: BoxFit.cover,
                 ),
               ),
-              const Center(
+              Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Analyzing Snake...",
-                      style: TextStyle(
+                      _loadingMessage,
+                      style: const TextStyle(
                         fontSize: 24,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Text(
-                      "Identifying Philippine Species",
-                      style: TextStyle(
+                      _processingStage,
+                      style: const TextStyle(
                         fontSize: 16,
                         color: Colors.white,
                       ),
                     ),
-                    SizedBox(height: 30),
-                    CircularProgressIndicator(
+                    const SizedBox(height: 30),
+                    const CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                     )
                   ],
@@ -176,11 +239,24 @@ class CameraPageState extends State<CameraPage> {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: CameraPreview(_controller),
+                  child: _isCameraInitialized
+                      ? CameraPreview(_controller)
+                      : Container(
+                    height: 300,
+                    color: Colors.black,
+                    child: const Center(
+                      child: Text(
+                        "Initializing camera...",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () => captureAndProcessImage(context),
+                  onPressed: _isCameraInitialized
+                      ? () => captureAndProcessImage(context)
+                      : null,
                   style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(),
                     padding: const EdgeInsets.all(20),

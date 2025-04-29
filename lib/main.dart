@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
@@ -9,17 +10,43 @@ import 'package:snake_buddy/camera.dart';
 import 'package:snake_buddy/details.dart';
 import 'package:snake_buddy/info.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:snake_buddy/helper/gemini_helper.dart';
+import 'package:snake_buddy/helper/tflite_helper.dart';
+import 'package:flutter/foundation.dart';
 
 List<CameraDescription> camera = [];
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  WakelockPlus.enable();
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.presentError(details);
+    debugPrint('FlutterError: ${details.exception}');
+  };
 
-  camera = await availableCameras();
+  PlatformDispatcher.instance.onError = (error, stack) {
+    debugPrint('PlatformDispatcher error: $error');
+    return true;
+  };
 
-  runApp(const MainApp());
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    try {
+      WakelockPlus.enable();
+    } catch (e) {
+      debugPrint('Error enabling wakelock: $e');
+    }
+
+    try {
+      camera = await availableCameras();
+    } catch (e) {
+      debugPrint('Error getting cameras: $e');
+      camera = [];
+    }
+
+    runApp(const MainApp());
+  }, (error, stackTrace) {
+    debugPrint('Caught error in runZonedGuarded: $error');
+    debugPrint(stackTrace.toString());
+  });
 }
 
 class MainApp extends StatelessWidget {
@@ -49,59 +76,81 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   final ImagePicker _picker = ImagePicker();
-  late GeminiHelper _geminiHelper;
+  late TFLiteHelper _tfliteHelper;
   bool isLoading = false;
+  String _loadingMessage = "Analyzing Snake...";
+  String _processingStage = "Initializing...";
 
   @override
   void initState() {
     super.initState();
-    _geminiHelper = GeminiHelper();
+    _tfliteHelper = TFLiteHelper();
+    Future.microtask(() => _tfliteHelper.loadModel());
   }
 
   Future<void> processImage(XFile image) async {
-    setState(() => isLoading = true);
+    setState(() {
+      isLoading = true;
+      _loadingMessage = "Analyzing Snake...";
+      _processingStage = "Processing with TensorFlow Lite...";
+    });
 
     try {
       final imageBytes = await image.readAsBytes();
-      final img.Image? decodedImage = img.decodeImage(Uint8List.fromList(imageBytes));
+
+      final img.Image? decodedImage = await compute(
+              (Uint8List bytes) => img.decodeImage(bytes),
+          Uint8List.fromList(imageBytes)
+      );
 
       if (decodedImage == null) {
-        setState(() => isLoading = false);
-        _showErrorDialog('Failed to decode image');
+        if (mounted) {
+          setState(() => isLoading = false);
+          _showErrorDialog('Failed to decode image. Please try another image.');
+        }
         return;
       }
 
-      // Resize image for API processing
-      final img.Image resizedImage = img.copyResize(decodedImage, width: 512, height: 512);
-
-      // Process with Gemini API
-      final result = await _geminiHelper.analyzeSnakeImage(resizedImage);
-
-      setState(() => isLoading = false);
+      await Future.delayed(const Duration(milliseconds: 500));
 
       if (mounted) {
-        if (result.containsKey('error') && result['error'] == true) {
-          _showErrorDialog(result['message']);
-          return;
-        }
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DetailsPage(
-              result: result,
-              capturedImage: MemoryImage(imageBytes),
-            ),
-          ),
-        );
+        setState(() {
+          _processingStage = "Enhancing results with Gemini AI...";
+        });
       }
-    } catch (e) {
+
+      final result = await _tfliteHelper.analyzeSnakeImage(decodedImage);
+
+      if (!mounted) return;
+
       setState(() => isLoading = false);
-      _showErrorDialog('Error: ${e.toString()}');
+
+      if (result.containsKey('error') && result['error'] == true) {
+        _showErrorDialog(result['message']);
+        return;
+      }
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DetailsPage(
+            result: result,
+            capturedImage: MemoryImage(imageBytes),
+          ),
+        ),
+      );
+    } catch (e) {
+      debugPrint('Error processing image: $e');
+      if (mounted) {
+        setState(() => isLoading = false);
+        _showErrorDialog('Error processing image. Please try again.');
+      }
     }
   }
 
   void _showErrorDialog(String message) {
+    if (!mounted) return;
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -157,28 +206,28 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
               Positioned.fill(
                 child: Container(
                   color: Colors.black.withOpacity(0.7),
-                  child: const Center(
+                  child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Analyzing Snake...",
-                          style: TextStyle(
+                          _loadingMessage,
+                          style: const TextStyle(
                             fontSize: 24,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Text(
-                          "Identifying Philippine Species",
-                          style: TextStyle(
+                          _processingStage,
+                          style: const TextStyle(
                             fontSize: 16,
                             color: Colors.white,
                           ),
                         ),
-                        SizedBox(height: 30),
-                        CircularProgressIndicator(
+                        const SizedBox(height: 30),
+                        const CircularProgressIndicator(
                           valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                         )
                       ],
@@ -224,10 +273,14 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
                               ),
                             ),
                             onPressed: () async {
-                              final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-
-                              if (image != null) {
-                                processImage(image);
+                              try {
+                                final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+                                if (image != null) {
+                                  processImage(image);
+                                }
+                              } catch (e) {
+                                debugPrint('Error picking image: $e');
+                                _showErrorDialog('Error accessing gallery. Please try again.');
                               }
                             },
                             child: const Column(
@@ -252,7 +305,9 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
                                 borderRadius: BorderRadius.circular(20),
                               ),
                             ),
-                            onPressed: () {
+                            onPressed: camera.isEmpty
+                                ? () => _showErrorDialog('Camera not available on this device.')
+                                : () {
                               Navigator.push(
                                 context,
                                 PageRouteBuilder(
